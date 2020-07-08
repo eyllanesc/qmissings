@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+  pull_request:
+
+jobs:
+  ci:
+    name: ${{ matrix.os.name }} ${{ matrix.python }} ${{ matrix.qt }}
+    runs-on: ${{ matrix.os.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - name: Linux
+            runs-on: ubuntu-latest
+            python_platform: linux
+          - name: Windows
+            runs-on: windows-latest
+            python_platform: win32
+          - name: macOS
+            runs-on: macos-latest
+            python_platform: darwin
+        python: [3.6, 3.7, 3.8]
+        qt: [5.14.0, 5.14.1, 5.14.2, 5.15.0]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+          architecture: x64
+      - name: install python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements_dev.txt
+          pip install pyqt5 --only-binary pyqt5
+          pip install pyside2 --only-binary pyside2
+      - name: Install Qt ${{ matrix.qt }}
+        uses: jurplel/install-qt-action@v2.7.2
+        with:
+          version: ${{ matrix.qt }}
+          dir: "${{ github.workspace }}/qt/"
+      - name: Install Linux test dependencies
+        if: matrix.os.python_platform == 'linux'
+        run: |
+          sudo apt-get update --yes
+          sudo apt-get install --yes '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
+      - name: install
+        run: make install
+      - name: test
+        uses: GabrielBB/xvfb-action@v1.2
+        with:
+          run: python ci.py

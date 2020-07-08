@@ -1,0 +1,57 @@
+# Config file for automatic testing at travis-ci.com
+dist: bionic
+
+addons:
+    apt:
+        packages:
+            - libxkbcommon-x11-0
+            - libgl1-mesa-dev
+
+services: 
+    - xvfb
+    
+language: python
+python:
+  - 3.8
+  - 3.7
+  - 3.6
+  - 3.5
+
+# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install: 
+  - pip install -U tox-travis aqtinstall
+  - pip install -r requirements_dev.txt
+
+env:
+  - PATH="$TRAVIS_BUILD_DIR/qt/5.15.0/gcc_64/bin:${PATH}"
+
+# Command to run tests, e.g. python setup.py test
+script: 
+  - aqt install --outputdir qt 5.15.0 linux desktop
+  - tox
+  - make docs
+  - touch docs/_build/html/.nojekyll
+
+# Assuming you have installed the travis-ci CLI tool, after you
+# create the Github repo and add it to Travis, run the
+# following command to finish PyPI deployment setup:
+# $ travis encrypt --add deploy.password
+deploy:
+  - provider: pypi
+    distributions: sdist bdist_wheel
+    user: eyllanesc
+    password:
+      secure: PLEASE_REPLACE_ME
+    on:
+      tags: true
+      repo: eyllanesc/qmissings
+      python: 3.8
+  - provider: pages:git
+    verbose: true
+    token: $GITHUB_TOKEN
+    edge: true
+    local_dir: ./docs/_build/html/
+    keep_history: true
+    on:
+      branch: master
+      python: 3.8
