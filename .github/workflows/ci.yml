@@ -54,6 +54,8 @@ jobs:
           sudo apt-get install --yes '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
       - name: install
         run: make install
+      - name: dist
+        run: make dist
       - name: test
         uses: GabrielBB/xvfb-action@v1.2
         with:
