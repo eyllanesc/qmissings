@@ -4,27 +4,21 @@
 Installation
 ============
 
-
-Stable release
---------------
-
-To install qmissings, run this command in your terminal:
+Qt must be installed first, for this you must find out which version of Qt PyQt5 or PySide2 uses:
 
 .. code-block:: console
 
-    $ pip install qmissings
+    $ python -c "from PyQt5 import QtCore; print(QtCore.qVersion())"
+    $ python -c "from PySide2 import QtCore; print(QtCore.qVersion())"
 
-This is the preferred method to install qmissings, as it will always install the most recent stable release.
+Then you can install Qt of that version, and for this you can use aqtinstall_:
 
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+.. code-block:: console
 
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+    $ python -m pip install aqtinstall
+    $ python -m aqtinstall 5.15.0 linux desktop --outputdir qt
+    $ export Qt5_DIR="${PWD}/qt"
 
-
-From sources
-------------
 
 The sources for qmissings can be downloaded from the `Github repo`_.
 
@@ -49,3 +43,4 @@ Once you have a copy of the source, you can install it with:
 
 .. _Github repo: https://github.com/eyllanesc/qmissings
 .. _tarball: https://github.com/eyllanesc/qmissings/tarball/master
+.. _aqtinstall: https://github.com/miurahr/aqtinstall

@@ -36,18 +36,17 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="stable-release">
-<h2>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this headline">¶</a></h2>
-<p>To install qmissings, run this command in your terminal:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install qmissings
+<p>Qt must be installed first, for this you must find out which version of Qt PyQt5 or PySide2 uses:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python -c <span class="s2">&quot;from PyQt5 import QtCore; print(QtCore.qVersion())&quot;</span>
+<span class="gp">$</span> python -c <span class="s2">&quot;from PySide2 import QtCore; print(QtCore.qVersion())&quot;</span>
 </pre></div>
 </div>
-<p>This is the preferred method to install qmissings, as it will always install the most recent stable release.</p>
-<p>If you don’t have <a class="reference external" href="https://pip.pypa.io">pip</a> installed, this <a class="reference external" href="http://docs.python-guide.org/en/latest/starting/installation/">Python installation guide</a> can guide
-you through the process.</p>
+<p>Then you can install Qt of that version, and for this you can use <a class="reference external" href="https://github.com/miurahr/aqtinstall">aqtinstall</a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python -m pip install aqtinstall
+<span class="gp">$</span> python -m aqtinstall <span class="m">5</span>.15.0 linux desktop --outputdir qt
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">Qt5_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/qt&quot;</span>
+</pre></div>
 </div>
-<div class="section" id="from-sources">
-<h2>From sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h2>
 <p>The sources for qmissings can be downloaded from the <a class="reference external" href="https://github.com/eyllanesc/qmissings">Github repo</a>.</p>
 <p>You can either clone the public repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git clone git://github.com/eyllanesc/qmissings
@@ -60,7 +59,6 @@ you through the process.</p>
 <p>Once you have a copy of the source, you can install it with:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python setup.py install
 </pre></div>
-</div>
 </div>
 </div>
 
@@ -84,11 +82,7 @@ you through the process.</p>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">qmissings</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#stable-release">Stable release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#from-sources">From sources</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">qmissings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
