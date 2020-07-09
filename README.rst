@@ -3,9 +3,6 @@ qmissings
 =========
 
 
-.. image:: https://img.shields.io/pypi/v/qmissings.svg
-        :target: https://pypi.python.org/pypi/qmissings
-
 .. image:: https://img.shields.io/travis/eyllanesc/qmissings.svg
         :target: https://travis-ci.com/eyllanesc/qmissings
 
@@ -20,6 +17,12 @@ Qt functions not provided by PySide2 and/or PyQt5
 * Free software: GNU General Public License v3
 * Documentation: https://eyllanesc.github.io/qmissings/
 
+
+Requirements
+------------
+
+- Qt
+- CMake >= 3.5
 
 Features
 --------
